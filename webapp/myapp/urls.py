@@ -31,11 +31,14 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('home/', paginaPrincipalView, name='Pagina Principal'),
+    path('', paginaPrincipalView, name='Pagina Principal'),
     path('admin/', admin.site.urls),
   
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Documentación de la API
+    
+    # Se esta comentando para probar la pagina Principal en el enlace
+    #path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Documentación de la API
+    
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
 
     path('careers/', CareerListCreateAPIView.as_view(), name='career-list-create'),
