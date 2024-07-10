@@ -100,3 +100,13 @@ def paginaPrincipalView(request, *args , **kwargs):
     print(args, kwargs)
     print(request.user)
     return render(request, "home.html", {})
+    
+def careerView(request):
+    form = Career(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = PersonaForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'templates/career.html', context)

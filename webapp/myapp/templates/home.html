@@ -1,9 +1,22 @@
-<!DOCTYPE>
-<html>
-	<head>
-		<title>Pagina Principal</title>
-	</head>
-	<body>
-		<h1>Primer Template</h1>
-	</body>
-</html>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<main class="formulario">
+  <form action="" method="post">
+    {% csrf_token %}
+    <h1>Iniciar Sesión</h1>
+
+    <div class="ingresar_datos">
+      <label for="exampleInputEmail1" class="etiqueta">Nombre de Usuario</label>
+      <input type="text" class="input" name="username" id="exampleInputEmail1">
+    </div>
+    <div class="ingresar_datos">
+      <label for="exampleInputPassword1" class="etiqueta">Contraseña</label>
+      <input type="password" class="input" name="password" id="exampleInputPassword1">
+    </div>
+
+    <button class="boton_inicio_sesion" type="submit">Iniciar Sesión</button>
+  </form>
+</main>
