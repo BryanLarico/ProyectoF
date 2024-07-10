@@ -1,5 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import render
+from django.http import HttpResponse
 from .Career import Career
 from .Course import Course
 from .Event import Event
@@ -93,3 +95,8 @@ class TeacherDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     permission_classes = [IsAuthenticated]
+
+def paginaPrincipalView(request, *args , **kwargs):
+    print(args, kwargs)
+    print(request.user)
+    return render(request, "home.html", {})

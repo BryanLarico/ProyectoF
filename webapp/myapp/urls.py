@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 from rest_framework import routers, permissions
+from webapp.myapp.views import paginaPrincipalView
 from .views import (
     CareerListCreateAPIView, CareerDetailAPIView,
     CourseListCreateAPIView, CourseDetailAPIView,
@@ -30,13 +31,14 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('home/', paginaPrincipalView, name='Pagina Principal'),
     path('admin/', admin.site.urls),
   
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Documentación de la API
-     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
 
-     path('careers/', CareerListCreateAPIView.as_view(), name='career-list-create'),
+    path('careers/', CareerListCreateAPIView.as_view(), name='career-list-create'),
     path('careers/<int:pk>/', CareerDetailAPIView.as_view(), name='career-detail'),
 
     # URLs para Course
