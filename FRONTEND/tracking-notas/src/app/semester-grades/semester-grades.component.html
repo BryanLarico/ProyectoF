@@ -1,1 +1,17 @@
-<p>semester-grades works!</p>
+<div style="text-align: center;">
+  <h1>Semester Grades</h1>
+  <table>
+    <tr>
+      <th>Course</th>
+      <th>Progress</th>
+      <th>Exam</th>
+      <th>Average</th>
+    </tr>
+    <tr *ngFor="let grade of grades">
+      <td>{{ grade.courseName }}</td>
+      <td>{{ grade.progress }}</td>
+      <td>{{ grade.exam }}</td>
+      <td>{{ grade.average }}</td>
+    </tr>
+  </table>
+</div>

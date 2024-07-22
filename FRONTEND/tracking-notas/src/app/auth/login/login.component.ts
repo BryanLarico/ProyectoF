@@ -1,40 +1,36 @@
-import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthService],
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit{
+  input = {
+    username: '',
+    password: '',
+  }  
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+  constructor(private authService: AuthService){
+
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      this.authService.login(username, password).subscribe({
-        next: response => {
-          console.log('Login successful:', response);
-        },
-        error: err => {
-          console.error('Login error:', err);
-        }
-      });
-    }
+  ngOnInit(): void {
   }
-
-  get f() {
-    return this.loginForm.controls;
+  loginUser(){
+    this.authService.login(this.input).subscribe(
+      response => {
+        console.log(response)
+        alert('User ' + this.input.username + ' logged.');
+      },
+      error => console.log('Error: ', error)
+    )
+    console.log(this.input);
   }
 }

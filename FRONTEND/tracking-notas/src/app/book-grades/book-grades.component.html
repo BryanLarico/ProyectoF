@@ -1,1 +1,22 @@
-<p>book-grades works!</p>
+<div style="text-align: center;">
+  <h1>Book Grades</h1>
+  <table>
+    <tr>
+      <th>Course Code</th>
+      <th>Course Name</th>
+      <th>Prerequisites</th>
+      <th>Credits</th>
+      <th>Grade</th>
+    </tr>
+    <tr *ngFor="let course of courses">
+      <td>{{ course.code }}</td>
+      <td>{{ course.name }}</td>
+      <td>{{ course.prerequisites }}</td>
+      <td>{{ course.credits }}</td>
+      <td>{{ course.grade }}</td>
+    </tr>
+  </table>
+  <div>
+    <h2>Overall Average: {{ overallAverage }}</h2>
+  </div>
+</div>

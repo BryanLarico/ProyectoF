@@ -22,7 +22,7 @@ import { BookGradesComponent } from './book-grades/book-grades.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule,
+    AppRoutingModule // Usa AppRoutingModule para las rutas
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'semester-grades', component: SemesterGradesComponent },
   { path: 'book-grades', component: BookGradesComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '' } // Manejo de rutas no encontradas
+  { path: '**', redirectTo: '' } 
 ];
 
 @NgModule({
