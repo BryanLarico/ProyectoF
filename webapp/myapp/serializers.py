@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from .Career import Career
 from .Course import Course
 from .Event import Event
@@ -7,6 +8,11 @@ from .Registration import Registration
 from .Section import Section
 from .Student import Student
 from .Teacher import Teacher
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'password']
 
 class CareerSerializer(serializers.ModelSerializer):
     class Meta:

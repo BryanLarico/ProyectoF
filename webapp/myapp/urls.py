@@ -2,8 +2,14 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 from rest_framework import routers, permissions
-from webapp.myapp.views import paginaPrincipalView, careerView
+from rest_framework.authtoken.views import ObtainAuthToken
+from webapp.myapp.views import paginaPrincipalView
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+# from webapp.myapp.views import paginaPrincipalView, careerView
 from .views import (
+    UserViewSet,
     CareerListCreateAPIView, CareerDetailAPIView,
     CourseListCreateAPIView, CourseDetailAPIView,
     EventListCreateAPIView, EventDetailAPIView,
@@ -13,12 +19,6 @@ from .views import (
     StudentListCreateAPIView, StudentDetailAPIView,
     TeacherListCreateAPIView, TeacherDetailAPIView,
 )
-
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -30,18 +30,21 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+
 urlpatterns = [
-    path('', paginaPrincipalView, name='Pagina Principal'),
-    path('careerView/', careerView),
+    path('', include(router.urls)),
+    # path('careerView/', careerView),
     path('admin/', admin.site.urls),
-  
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/', include(router.urls)),
+    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('auth/', ObtainAuthToken.as_view()),
     
-    # Se esta comentando para probar la pagina Principal en el enlace
-    #path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Documentación de la API
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Documentación de la API
     
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('careers/', CareerListCreateAPIView.as_view(), name='career-list-create'),
     path('careers/<int:pk>/', CareerDetailAPIView.as_view(), name='career-detail'),
 

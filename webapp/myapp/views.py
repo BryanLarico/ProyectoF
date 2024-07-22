@@ -1,7 +1,11 @@
-from rest_framework import generics
+from rest_framework import generics, permissions, viewsets
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 from .Career import Career
 from .Course import Course
 from .Event import Event
@@ -16,6 +20,12 @@ from .serializers import (
     StudentSerializer, TeacherSerializer
 )
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
 class CareerListCreateAPIView(generics.ListCreateAPIView):
     queryset = Career.objects.all()
     serializer_class = CareerSerializer
@@ -75,7 +85,18 @@ class SectionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
     permission_classes = [IsAuthenticated]
+"""
+class RegisterStudentView(generics.CreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+"""        
 class StudentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
@@ -100,7 +121,8 @@ def paginaPrincipalView(request, *args , **kwargs):
     print(args, kwargs)
     print(request.user)
     return render(request, "home.html", {})
-    
+
+"""  
 def careerView(request):
     form = Career(request.POST or None)
     if form.is_valid():
@@ -110,3 +132,4 @@ def careerView(request):
         'form': form
     }
     return render(request, 'templates/career.html', context)
+"""
