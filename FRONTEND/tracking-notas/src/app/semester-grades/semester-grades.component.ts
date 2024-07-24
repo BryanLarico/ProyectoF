@@ -14,37 +14,40 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [AuthService],
 })
 export class SemesterGradesComponent implements OnInit {
-  grades: any[] = [];
+  courses: any[] = [];
   courseGrades = {
-    name: '',
-    e1_percentage: 0,
-    e1_grades: 0,
-    p1_percentage: 0,
-    p1_grades: 0,
-    e2_percentage: 0,
-    e2_grades: 0,
-    p2_percentage: 0,
-    p2_grades: 0,
-    e3_percentage: 0,
-    e3_grades: 0,
-    p3_percentage: 0,
-    p3_grades: 0,
-    percentage_acum: 0.0,
-    score_acum: 0.0,
+    idUnitReport: 0,
+    idCourse: 1,
+    idStudent: 1,
+    eval_cont1: 0,
+    parcial1: 0,
+    eval_cont2: 0,
+    parcial2: 0,
+    eval_cont3: 0,
+    parcial3: 0,
   }
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private authService: AuthService, private http: HttpClient){}
   ngOnInit(): void {
-    //this.loadGrades();
+    this.loadCourse();
   }
 
-  loadGrades(): void {
-    const apiUrl = 'http://127.0.0.1:8000/api/grades/'; // Actualiza con la URL correcta de tu API
+  loadCourse(): void {
+    const apiUrl = 'http://127.0.0.1:8000/api/courses/';
     this.http.get(apiUrl).subscribe((data: any) => {
-      this.grades = data;
+      this.courses = data;
     });
   }
+
+  sendGradesHTML(){
+    this.authService.sendGrades(this.courseGrades).subscribe(
+      response => {
+        console.log(this.courseGrades);
+      },
+      error => console.log('Error:', error)
+    )
+  }
+  /*
   averageGrades(){
     const courseGrades = this.courseGrades;
     var acumPercentage = 0;
@@ -59,6 +62,7 @@ export class SemesterGradesComponent implements OnInit {
     this.courseGrades.percentage_acum = acumPercentage;
     console.log(acumPercentage);
   }
+  */
   prom(percentage: number, grades: number){
     return percentage * grades / 20;
   }

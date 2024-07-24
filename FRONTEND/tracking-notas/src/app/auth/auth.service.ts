@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrlSignUP = 'http://127.0.0.1:8000/api/users/';
   private apiUrlLogin = 'http://127.0.0.1:8000/api/auth/';
+  private apiGrades = 'http://127.0.0.1:8000/api/unitreports/';
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +18,9 @@ export class AuthService {
 
   signup(userData: UserData): Observable<any> {
     return this.http.post(this.apiUrlSignUP, userData)
+  }
+  sendGrades(grades: Grades): Observable<any> {
+    return this.http.post(this.apiGrades, grades)
   }
 }
 interface UserData {
@@ -47,4 +51,15 @@ interface courseGrades {
   p3_grades: number,
   percentage_acum: number,
   socre_acum: number,
-}  
+}
+interface Grades {
+  idUnitReport: number,
+  idCourse: number, // FP1
+  idStudent: number, // Bryan
+  eval_cont1: number,
+  parcial1: number,
+  eval_cont2: number,
+  parcial2: number,
+  eval_cont3: number,
+  parcial3: number,
+}

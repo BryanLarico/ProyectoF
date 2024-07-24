@@ -20,7 +20,6 @@ export class SignupComponent implements OnInit{
   }  
 
   constructor(private authService: AuthService){
-
   }
 
   ngOnInit(): void {
