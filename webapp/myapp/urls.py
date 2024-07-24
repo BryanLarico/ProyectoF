@@ -18,6 +18,8 @@ from .views import (
     SectionListCreateAPIView, SectionDetailAPIView,
     StudentListCreateAPIView, StudentDetailAPIView,
     TeacherListCreateAPIView, TeacherDetailAPIView,
+    UnitReportListCreateAPIView, UnitReportDetailAPIView,
+    UnitReportByStudentAPIView,
 )
 
 schema_view = get_schema_view(
@@ -36,7 +38,6 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     # path('careerView/', careerView),
-    path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/', ObtainAuthToken.as_view()),
@@ -52,6 +53,15 @@ urlpatterns = [
     path('courses/', CourseListCreateAPIView.as_view(), name='course-list-create'),
     path('courses/<int:pk>/', CourseDetailAPIView.as_view(), name='course-detail'),
 
+    # URLs para UnitReport
+    path('unitreports/', UnitReportListCreateAPIView.as_view(), name='unitreport-list-create'),
+    path('unitreports/<int:pk>/', UnitReportDetailAPIView.as_view(), name='unitreport-detail'),
+    path('unitreports/student/<int:id_Student>/', UnitReportByStudentAPIView.as_view(), name='unitreport-by-student'),
+    
+    # URLs para Student
+    path('students/', StudentListCreateAPIView.as_view(), name='student-list-create'),
+    path('students/<int:pk>/', StudentDetailAPIView.as_view(), name='student-detail'),
+    
     # URLs para Event
     path('events/', EventListCreateAPIView.as_view(), name='event-list-create'),
     path('events/<int:pk>/', EventDetailAPIView.as_view(), name='event-detail'),
@@ -68,11 +78,9 @@ urlpatterns = [
     path('sections/', SectionListCreateAPIView.as_view(), name='section-list-create'),
     path('sections/<int:pk>/', SectionDetailAPIView.as_view(), name='section-detail'),
 
-    # URLs para Student
-    path('students/', StudentListCreateAPIView.as_view(), name='student-list-create'),
-    path('students/<int:pk>/', StudentDetailAPIView.as_view(), name='student-detail'),
-
     # URLs para Teacher
     path('teachers/', TeacherListCreateAPIView.as_view(), name='teacher-list-create'),
     path('teachers/<int:pk>/', TeacherDetailAPIView.as_view(), name='teacher-detail'),
+
+    # path('report/', report_view, name='report-view'),
 ]

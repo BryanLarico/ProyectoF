@@ -8,6 +8,7 @@ from .Student import Student
 from .Teacher import Teacher
 from .Grades import Grades
 from .Career import Career
+from .UnitReport import UnitReport
 
 CustomUser = settings.AUTH_USER_MODEL
 
@@ -21,7 +22,7 @@ class BaseAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class CourseAdmin(BaseAdmin):
-    list_display = ['idCourse', 'nameCourse', 'idTeacher', 'credit', 'year', 'laboratory', 'hoursTeory', 'hoursPractice', 'status', 'created', 'modified']
+    list_display = ['idCourse', 'nameCourse', 'idTeacher', 'credit', 'year', 'laboratory', 'hoursTeory', 'hoursPractice', 'p1', 'p2', 'p3', 'e1', 'e2', 'e3', 'status', 'created', 'modified']
 
 class EventAdmin(BaseAdmin):
     list_display = ['idEvent', 'idCourse', 'amountEvent', 'percentageProgress', 'percentageExam', 'created', 'modified']
@@ -44,6 +45,9 @@ class GradesAdmin(BaseAdmin):
 class CareerAdmin(BaseAdmin):
     list_display = ['idCareer', 'nameCareer', 'created', 'modified']
 
+class UnitReportAdmin(BaseAdmin):
+    list_display = ['idUnitReport', 'idCourse', 'idStudent', 'eval_cont1', 'parcial1', 'eval_cont2', 'parcial2', 'eval_cont3', 'parcial3']
+
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Registration, RegistrationAdmin)
@@ -52,3 +56,5 @@ admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Grades, GradesAdmin)
 admin.site.register(Career, CareerAdmin)
+admin.site.register(UnitReport, UnitReportAdmin)
+
