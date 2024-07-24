@@ -16,17 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class SemesterGradesComponent implements OnInit {
   studentId: number = 1 // Cambiar esto por el ID del estudiante
   courses: any[] = [];
-  courseGrades = {
-    idUnitReport: 0,
-    idCourse: 1,
-    idStudent: 1,
-    eval_cont1: 0,
-    parcial1: 0,
-    eval_cont2: 0,
-    parcial2: 0,
-    eval_cont3: 0,
-    parcial3: 0,
-  }
+  courseGrades: { [key: number]: any } = {};
   acumFila: number[] = [];
   acumFilaPunt: number[] = [];
 
@@ -40,18 +30,25 @@ export class SemesterGradesComponent implements OnInit {
     const apiUrl = 'http://127.0.0.1:8000/api/courses/';
     this.http.get(apiUrl).subscribe((data: any) => {
       this.courses = data;
+      this.loadGrades();
     });
   }
 
-  sendGradesHTML(){
-    this.authService.sendGrades(this.courseGrades).subscribe(
-      response => {
-        console.log(this.courseGrades);
-      },
-      error => console.log('Error:', error)
-    )
+  sendGradesHTML() {
+    for (let courseId in this.courseGrades) {
+      const unitReport = this.courseGrades[courseId];
+      if (unitReport.idUnitReport) { // Verifica que `idUnitReport` esté definido
+        this.authService.updateGrades(unitReport.idUnitReport, unitReport).subscribe(
+          response => {
+            console.log('Updated unit report:', response);
+          },
+          error => console.log('Error:', error)
+        );
+      }
+    }
   }
-  loadGrades(idCourse: number): void {
+  
+  loadGrades(): void {
     const apiGradesUrl = `http://127.0.0.1:8000/api/unitreports/student/${this.studentId}/`;
     this.http.get<any []>(apiGradesUrl).subscribe((data) => {
       data.forEach((unitReport: any) => {
@@ -65,18 +62,22 @@ export class SemesterGradesComponent implements OnInit {
   }
 
 
-  averageGrades(){
-    let acumPercentage = 0;
-    for(let course of this.courses){
-      const courseGrades = this.courseGrades;
+  averageGrades() {
+    this.acumFila = []; 
+    for (let course of this.courses) {
+      const courseGrades = this.courseGrades[course.idCourse] || {
+        eval_cont1: 0, parcial1: 0,
+        eval_cont2: 0, parcial2: 0,
+        eval_cont3: 0, parcial3: 0
+      };
+      let acumPercentage = 0;
       acumPercentage += this.prom(courseGrades.eval_cont1, course.e1);
-      console.log(courseGrades.eval_cont1);
+      console.log(acumPercentage);
       acumPercentage += this.prom(courseGrades.parcial1, course.p1);
       acumPercentage += this.prom(courseGrades.eval_cont2, course.e2);
       acumPercentage += this.prom(courseGrades.parcial2, course.p2);
       acumPercentage += this.prom(courseGrades.eval_cont3, course.e3);
       acumPercentage += this.prom(courseGrades.parcial3, course.p3);
-      console.log(acumPercentage);
       this.acumFila.push(acumPercentage);
     }
     this.averageGradesPunt();
@@ -87,6 +88,7 @@ export class SemesterGradesComponent implements OnInit {
   }
 
   averageGradesPunt(){
+    this.acumFilaPunt = [];
     let acumPunt = 0;
     for(let acum of this.acumFila){
       acumPunt += acum / 5;

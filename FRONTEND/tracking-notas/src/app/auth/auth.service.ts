@@ -22,6 +22,10 @@ export class AuthService {
   sendGrades(grades: Grades): Observable<any> {
     return this.http.post(this.apiGrades, grades)
   }
+  updateGrades(unitReportId: number, data: any): Observable<any> {
+    const url = `${this.apiGrades}${unitReportId}/`;
+    return this.http.put(url, data);
+  }
 }
 interface UserData {
   username: string,
