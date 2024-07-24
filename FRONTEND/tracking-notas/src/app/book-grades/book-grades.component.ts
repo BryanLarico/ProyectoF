@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class BookGradesComponent implements OnInit {
   courses: any[] = [];
-  overallAverage: number = 0;
+  overallAverage: number = 0; 
 
   constructor(private http: HttpClient) {}
 

@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit{
     username: '',
     password: '',
     email: '',
+    is_staff: true,
   }  
 
   constructor(private authService: AuthService){
@@ -27,7 +28,7 @@ export class SignupComponent implements OnInit{
   registerUser(){
     this.authService.signup(this.register).subscribe(
       response => {
-        alert('User' + this.register.username + 'created')
+        alert('User ' + this.register.username + ' created')
       },
       error => console.log('Error:', error)
     )

@@ -12,19 +12,13 @@ import { SemesterGradesComponent } from './semester-grades/semester-grades.compo
 import { BookGradesComponent } from './book-grades/book-grades.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    SemesterGradesComponent,
-    BookGradesComponent
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule // Usa AppRoutingModule para las rutas
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }

@@ -23,9 +23,28 @@ interface UserData {
   username: string,
   password: string,
   email: string,
+  is_staff: boolean,
 }
 
 interface UserLogin {
   username: string,
   password: string,
 }
+
+interface courseGrades {
+  course: string,
+  e1_percentage: number,
+  e1_grades: number,
+  p1_percentage: number,
+  p1_grades: number,
+  e2_percentage: number,
+  e2_grades: number,
+  p2_percentage: number,
+  p2_grades: number,
+  e3_percentage: number,
+  e3_grades: number,
+  p3_percentage: number,
+  p3_grades: number,
+  percentage_acum: number,
+  socre_acum: number,
+}  
