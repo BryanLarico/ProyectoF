@@ -1,22 +1,23 @@
-<div style="text-align: center;">
-  <h1>Book Grades</h1>
+<div >
   <table>
-    <tr>
-      <th>Course Code</th>
-      <th>Course Name</th>
-      <th>Prerequisites</th>
-      <th>Credits</th>
-      <th>Grade</th>
+  <thead>
+    <tr class="header">
+      <th>CURSO</th>
+      <th>CODIGO</th>
+      <th>PRE-REQUISITO</th>
+      <th>CREDITOS</th>
+      <th>NOTA</th>
     </tr>
-    <tr *ngFor="let course of courses">
-      <td>{{ course.code }}</td>
-      <td>{{ course.name }}</td>
-      <td>{{ course.prerequisites }}</td>
-      <td>{{ course.credits }}</td>
-      <td>{{ course.grade }}</td>
-    </tr>
-  </table>
-  <div>
-    <h2>Overall Average: {{ overallAverage }}</h2>
-  </div>
+  </thead>
+  <tbody>
+      <tr *ngFor="let course of courses">
+          <td>{{ course.nameCourse }}</td>
+          <td>{{ course.idCourse }}</td>
+          <td>{{ course.preRequirements }}</td>
+          <td>{{ course.credit }}</td>
+          <td>{{ course.nota }}</td>
+        </tr>
+  </tbody>
+</table>
 </div>
+
