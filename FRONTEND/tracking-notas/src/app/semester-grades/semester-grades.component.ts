@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [AuthService],
 })
 export class SemesterGradesComponent implements OnInit {
+  studentId: number = 1 // Cambiar esto por el ID del estudiante
   courses: any[] = [];
   courseGrades = {
     idUnitReport: 0,
@@ -26,8 +27,11 @@ export class SemesterGradesComponent implements OnInit {
     eval_cont3: 0,
     parcial3: 0,
   }
+  acumFila: number[] = [];
+  acumFilaPunt: number[] = [];
 
-  constructor(private authService: AuthService, private http: HttpClient){}
+  constructor(private authService: AuthService, private http: HttpClient){
+  }
   ngOnInit(): void {
     this.loadCourse();
   }
@@ -47,23 +51,47 @@ export class SemesterGradesComponent implements OnInit {
       error => console.log('Error:', error)
     )
   }
-  /*
-  averageGrades(){
-    const courseGrades = this.courseGrades;
-    var acumPercentage = 0;
-    acumPercentage += this.prom(courseGrades.e1_percentage, courseGrades.e1_grades);
-    console.log(courseGrades.e1_grades);
-    console.log(courseGrades.e1_percentage);
-    acumPercentage += this.prom(courseGrades.p1_percentage, courseGrades.p1_grades);
-    acumPercentage += this.prom(courseGrades.e2_percentage, courseGrades.e2_grades);
-    acumPercentage += this.prom(courseGrades.p2_percentage, courseGrades.p2_grades);
-    acumPercentage += this.prom(courseGrades.e3_percentage, courseGrades.e3_grades);
-    acumPercentage += this.prom(courseGrades.p3_percentage, courseGrades.p3_grades);
-    this.courseGrades.percentage_acum = acumPercentage;
-    console.log(acumPercentage);
+  loadGrades(idCourse: number): void {
+    const apiGradesUrl = `http://127.0.0.1:8000/api/unitreports/student/${this.studentId}/`;
+    this.http.get<any []>(apiGradesUrl).subscribe((data) => {
+      data.forEach((unitReport: any) => {
+        if (!this.courseGrades[unitReport.idCourse]) {
+          this.courseGrades[unitReport.idCourse] = unitReport;
+        }
+      });
+    }, error => {
+      console.log('Error loading grades:', error);
+    });
   }
-  */
+
+
+  averageGrades(){
+    let acumPercentage = 0;
+    for(let course of this.courses){
+      const courseGrades = this.courseGrades;
+      acumPercentage += this.prom(courseGrades.eval_cont1, course.e1);
+      console.log(courseGrades.eval_cont1);
+      acumPercentage += this.prom(courseGrades.parcial1, course.p1);
+      acumPercentage += this.prom(courseGrades.eval_cont2, course.e2);
+      acumPercentage += this.prom(courseGrades.parcial2, course.p2);
+      acumPercentage += this.prom(courseGrades.eval_cont3, course.e3);
+      acumPercentage += this.prom(courseGrades.parcial3, course.p3);
+      console.log(acumPercentage);
+      this.acumFila.push(acumPercentage);
+    }
+    this.averageGradesPunt();
+  }
+
   prom(percentage: number, grades: number){
     return percentage * grades / 20;
+  }
+
+  averageGradesPunt(){
+    let acumPunt = 0;
+    for(let acum of this.acumFila){
+      acumPunt += acum / 5;
+      this.acumFilaPunt.push(acumPunt);
+
+    }
   }
 }

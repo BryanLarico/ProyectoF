@@ -1,0 +1,5 @@
+.logo {
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: auto;
+  display: block; /* Asegúrate de que la imagen se muestra */
+}

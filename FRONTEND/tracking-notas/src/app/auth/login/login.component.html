@@ -8,17 +8,18 @@
 
 <div class="container">
   <div class="header">
-    <img src="logotrack.png" alt="Logo" class="logo">
+    <img src="/assets/logotrack.png" alt="Logo" class="logo">
     <h1 class="title">
       <span class="title-text">Tracking</span><span class="title-symbol">()</span>
     </h1>
+    <h2 class="subtitle">Inicio de Sesión</h2>
   </div>
   <p class="description">Tracking() es tu asistente académico inteligente</p>
-  <!--<a href="#access" class="access-link">Acceso a la cuenta</a>-->
   <div class="login-form">
     <input [(ngModel)]="input.username" placeholder="Username" class="input-field"><br>
     <input [(ngModel)]="input.password" type="password" placeholder="Password" class="input-field"><br>
     <button (click)="loginUser()" class="login-button">Iniciar Sesión</button>
+    <a href="../signup" class="access-link">Registrarse</a>
     <!--<button (click)="registerUser()" class="register-button">Registrarse</button>-->
   </div>
 </div>

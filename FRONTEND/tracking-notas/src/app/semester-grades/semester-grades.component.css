@@ -1,15 +1,99 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo del contenedor de la tabla */
+.table-container {
+  max-width: 1500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo de la tabla */
 table {
   width: 100%;
   border-collapse: collapse;
 }
-th, td {
-  border: 1px solid #000;
+
+/* Encabezado de la tabla */
+thead {
+  background-color: #003366; /* Azul oscuro */
+  color: #ffffff;
+}
+
+thead th {
+  padding: 15px;
   text-align: center;
-  padding: 8px;
+  border-bottom: 4px solid #004080; /* Borde inferior azul más claro */
 }
-th[colspan] {
-  background-color: #e0e0e0;
+
+thead th.highlight {
+  background-color: #004080; /* Azul más claro para las celdas de porcentaje y nota */
 }
-.highlight {
-  background-color: #add8e6;
+
+/* Estilo de las filas del cuerpo de la tabla */
+tbody tr {
+  border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+}
+
+tbody td {
+  padding: 12px;
+  text-align: center;
+  border-right: 1px solid #ddd; /* Línea divisoria vertical */
+}
+
+tbody td.highlight {
+  background-color: #f0f8ff; /* Fondo azul muy claro para resaltar celdas de porcentaje y nota */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Color de fondo alterno */
+}
+
+tbody tr:hover {
+  background-color: #e0f7fa; /* Color de fondo al pasar el cursor sobre una fila */
+}
+
+/* Estilo para la última columna sin borde derecho */
+td:last-child, th:last-child {
+  border-right: none;
+}
+
+/* Estilo para los porcentajes */
+span.percentage {
+  color: #003366; /* Azul oscuro */
+  font-weight: bold;
+}
+
+/* Estilo de los campos de entrada */
+.small-input {
+  width: 60px; /* Ajusta el tamaño de los campos de entrada */
+  padding: 4px;
+  font-size: 14px;
+}
+
+/* Estilo del botón */
+.calculate-button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #003366; /* Azul oscuro */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.calculate-button:hover {
+  background-color: #002
 }

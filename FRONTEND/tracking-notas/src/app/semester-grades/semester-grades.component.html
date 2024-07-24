@@ -1,82 +1,63 @@
-<table>
-  <thead>
-    <tr>
-      <th rowspan="3">CURSO</th>
-      <th colspan="4">UNIDAD 1</th>
-      <th colspan="4">UNIDAD 2</th>
-      <th colspan="4">UNIDAD 3</th>
-      <th rowspan="3">PORCENTAJE ACUMULADO</th>
-      <th rowspan="3">PUNTAJE ACUMULADO</th>
-    </tr>
-    <tr>
-      <th colspan="2">EVALUACIÓN CONTINUA 1</th>
-      <th colspan="2">PARCIAL 1</th>
-      <th colspan="2">EVALUACIÓN CONTINUA 2</th>
-      <th colspan="2">PARCIAL 2</th>
-      <th colspan="2">EVALUACIÓN CONTINUA 3</th>
-      <th colspan="2">PARCIAL 3</th>
-    </tr>
-    <tr>
-      <th class="highlight">Pocentaje</th>
-      <th class="highlight">Nota</th>
-      <th class="highlight">Pocentaje</th>
-      <th class="highlight">Nota</th>
-      <th class="highlight">Pocentaje</th>
-      <th class="highlight">Nota</th>
-      <th class="highlight">Pocentaje</th>
-      <th class="highlight">Nota</th>
-      <th class="highlight">Pocentaje</th>
-      <th class="highlight">Nota</th>
-      <th class="highlight">Pocentaje</th>
-      <th class="highlight">Nota</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let course of courses">
-        <td>{{ course.nameCourse }}</td>
-        <td class="highlight">{{ course.e1 }}</td>
-        <td class="highlight"><input [(ngModel)]="courseGrades.eval_cont1" type="number"></td>
-        <td class="highlight">{{ course.p1 }}</td>
-        <td class="highlight"><input [(ngModel)]="courseGrades.parcial1" type="number"></td>
-        <td class="highlight">{{ course.e2 }}</td>
-        <td class="highlight"><input [(ngModel)]="courseGrades.eval_cont2" type="number"></td>
-        <td class="highlight">{{ course.p2 }}</td>
-        <td class="highlight"><input [(ngModel)]="courseGrades.parcial2" type="number"></td>
-        <td class="highlight">{{ course.e3 }}</td>
-        <td class="highlight"><input [(ngModel)]="courseGrades.eval_cont3" type="number"></td>
-        <td class="highlight">{{ course.p3 }}</td>
-        <td class="highlight"><input [(ngModel)]="courseGrades.parcial3" type="number"></td>
-        <td></td>
-        <td></td>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="3">CURSO</th>
+        <th colspan="4">UNIDAD 1</th>
+        <th colspan="4">UNIDAD 2</th>
+        <th colspan="4">UNIDAD 3</th>
+        <th rowspan="3">PORCENTAJE ACUMULADO</th>
+        <th rowspan="3">PUNTAJE ACUMULADO</th>
       </tr>
-  </tbody>
-  <!--
-  <tbody>
-    <tr *ngFor="let course of courses">
-        <td>{{ course.name }}</td>
-        <td class="highlight"></td>
-        <td class="highlight">{{ course.unit1.eval_cont1 }}</td>
-        <td class="highlight">{{ course.unit1.parcial1 }}</td>
-        <td class="highlight">{{ course.unit1.eval_cont2 }}</td>
-        <td class="highlight">{{ course.unit1.parcial2 }}</td>
-        <td class="highlight">{{ course.unit2.eval_cont3 }}</td>
-        <td class="highlight">{{ course.unit2.parcial3 }}</td>
-        <td class="highlight">{{ course.unit2.eval_cont1 }}</td>
-        <td class="highlight">{{ course.unit2.parcial1 }}</td>
-        <td class="highlight">{{ course.unit3.eval_cont2 }}</td>
-        <td class="highlight">{{ course.unit3.parcial2 }}</td>
-        <td class="highlight">{{ course.unit3.eval_cont3 }}</td>
-        <td class="highlight">{{ course.unit3.parcial3 }}</td>
-        <td>{{ course.porcentaje_acumulado }}</td>
-        <td>{{ course.puntaje_acumulado }}</td>
+      <tr>
+        <th colspan="2">EVALUACIÓN CONTINUA 1</th>
+        <th colspan="2">PARCIAL 1</th>
+        <th colspan="2">EVALUACIÓN CONTINUA 2</th>
+        <th colspan="2">PARCIAL 2</th>
+        <th colspan="2">EVALUACIÓN CONTINUA 3</th>
+        <th colspan="2">PARCIAL 3</th>
       </tr>
-  </tbody>
-  -->
-  <!--<button (click)="averageGrades()">Calcular</button>-->
-  <button (click)="sendGradesHTML()">Enviar Notas</button>
-
-</table>
-<div>
-  <!--<strong>Promedio general: </strong> {{overallAverage | number: '1.2-2'}}-->
+      <tr>
+        <th class="highlight">Pocentaje</th>
+        <th class="highlight">Nota</th>
+        <th class="highlight">Pocentaje</th>
+        <th class="highlight">Nota</th>
+        <th class="highlight">Pocentaje</th>
+        <th class="highlight">Nota</th>
+        <th class="highlight">Pocentaje</th>
+        <th class="highlight">Nota</th>
+        <th class="highlight">Pocentaje</th>
+        <th class="highlight">Nota</th>
+        <th class="highlight">Pocentaje</th>
+        <th class="highlight">Nota</th>
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses; let i = index">
+          <td>{{ course.nameCourse }}</td>
+          <td class="highlight"><span class="percentage">{{ course.e1 }} %</span></td>
+          <td class="highlight"><input class="small-input" [(ngModel)]="courseGrades.eval_cont1" type="number"></td>
+          <td class="highlight"><span class="percentage">{{ course.p1 }} %</span></td>
+          <td class="highlight"><input class="small-input" [(ngModel)]="courseGrades.parcial1" type="number"></td>
+          <td class="highlight"><span class="percentage">{{ course.e2 }} %</span></td>
+          <td class="highlight"><input class="small-input" [(ngModel)]="courseGrades.eval_cont2" type="number"></td>
+          <td class="highlight"><span class="percentage">{{ course.p2 }} %</span></td>
+          <td class="highlight"><input class="small-input" [(ngModel)]="courseGrades.parcial2" type="number"></td>
+          <td class="highlight"><span class="percentage">{{ course.e3 }} %</span></td>
+          <td class="highlight"><input class="small-input" [(ngModel)]="courseGrades.eval_cont3" type="number"></td>
+          <td class="highlight"><span class="percentage">{{ course.p3 }} %</span></td>
+          <td class="highlight"><input class="small-input" [(ngModel)]="courseGrades.parcial3" type="number"></td>
+          <td>{{ acumFila[i] }} %</td>
+          <td>{{ acumFilaPunt[i] }}</td>
+        </tr>
+    </tbody>
+    <!--<button (click)="averageGrades()">Calcular</button>-->
+    <!--<button (click)="sendGradesHTML()">Enviar Notas</button>-->
+    <button class="calculate-button" (click)="averageGrades()">Calcular</button>
+    <a href="../book-grades" class="">Promedio General</a>
+  </table>
+  <div>
+    <!--<strong>Promedio general: </strong> {{overallAverage | number: '1.2-2'}}-->
+  </div>
 </div>
