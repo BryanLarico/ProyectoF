@@ -4,16 +4,13 @@ from .Teacher import Teacher
 
 class Course(models.Model):
     idCourse = models.IntegerField(primary_key=True, unique=True)
-    nameCourse = models.CharField(max_length=20, unique=True)
-    idTeacher = models.ForeignKey(
-        Teacher, 
-        on_delete=models.CASCADE, 
-        null=True)
+    nameCourse = models.CharField(max_length=100, unique=True)
     credit = models.IntegerField(null=True)
-    year = models.IntegerField(null=True)
-    laboratory = models.BooleanField(null=True)
-    hoursTeory = models.IntegerField(null=True)
-    hoursPractice = models.IntegerField(null=True)
+    prerequisite = models.IntegerField(null=True, blank=True)
+    semester = models.IntegerField(null=True)
+    laboratory = models.BooleanField(null=True, blank=True)
+    hoursTeory = models.IntegerField(null=True, blank=True)
+    hoursPractice = models.IntegerField(null=True, blank=True)
     p1 = models.IntegerField(null=True)
     p2 = models.IntegerField(null=True)
     p3 = models.IntegerField(null=True)

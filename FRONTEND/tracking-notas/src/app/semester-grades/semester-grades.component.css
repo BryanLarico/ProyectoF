@@ -49,7 +49,7 @@ tbody td {
 }
 
 tbody td.highlight {
-  background-color: #f0f8ff; /* Fondo azul muy claro para resaltar celdas de porcentaje y nota */
+  background-color: #f0f8ff; 
 }
 
 tbody tr:nth-child(even) {
@@ -78,11 +78,18 @@ span.percentage {
   font-size: 14px;
 }
 
+/* Contenedor de botones y enlaces */
+.button-container {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  gap: 20px; /* Añade espacio entre los botones y el enlace */
+  margin: 20px 0; /* Añade margen arriba y abajo */
+}
+
 /* Estilo del botón */
 .calculate-button {
   display: block;
-  width: 100%;
-  margin-top: 20px;
+  width: 20%; /* Ajuste del ancho completo */
   padding: 15px;
   background-color: #003366; /* Azul oscuro */
   color: white;
@@ -95,5 +102,26 @@ span.percentage {
 }
 
 .calculate-button:hover {
-  background-color: #002
+  background-color: #002244; /* Azul más oscuro al pasar el cursor */
+}
+
+/* Estilo del enlace */
+.share-link {
+  color: #003366; /* Azul oscuro */
+  text-decoration: none;
+  font-size: 16px;
+  display: block; /* Hace que el enlace ocupe toda la línea */
+  text-align: center; /* Centra el texto del enlace */
+  padding: 15px;
+  border: 2px solid #003366; /* Añade un borde del mismo color que el texto */
+  border-radius: 8px; /* Redondea las esquinas del borde */
+  background-color: #fff; /* Fondo blanco para destacarlo */
+  width: 20%; /* Ajuste del ancho completo */
+}
+
+.share-link:hover {
+  text-decoration: none; /* Elimina el subrayado en el hover */
+  color: #002244; /* Azul más oscuro al pasar el cursor */
+  background-color: #f0f0f0; /* Cambia el fondo a un gris claro para el efecto hover */
+  border-color: #002244; /* Cambia el color del borde al pasar el cursor */
 }

@@ -52,11 +52,12 @@
           <td>{{ acumFilaPunt[i] }}</td>
         </tr>
     </tbody>
-    <!--<button (click)="averageGrades()">Calcular</button>-->
+  </table>
+  <div class="button-container">
     <button class="calculate-button" (click)="averageGrades()">Calcular</button>
     <button class="calculate-button" (click)="sendGradesHTML()">Guardar</button>
-    <a href="../book-grades" class="">Promedio General</a>
-  </table>
+    <a href="../book-grades" class="share-link">Promedio General</a>
+  </div>
   <div>
     <!--<strong>Promedio general: </strong> {{overallAverage | number: '1.2-2'}}-->
   </div>

@@ -16,10 +16,12 @@ from .Section import Section
 from .Student import Student
 from .Teacher import Teacher
 from .UnitReport import UnitReport
+from .CourseGradesStudent import CourseGradesStudent
 from .serializers import (
     CareerSerializer, CourseSerializer, EventSerializer,
     GradesSerializer, RegistrationSerializer, SectionSerializer,
-    StudentSerializer, TeacherSerializer, UnitReportSerializer
+    StudentSerializer, TeacherSerializer, UnitReportSerializer,
+    CourseGradesStudentSerializer,
 )
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -37,7 +39,17 @@ class CourseDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     #permission_classes = [IsAuthenticated]
+    
+class CourseGradesStudentListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    #permission_classes = [IsAuthenticated]
 
+class CourseGradesStudentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    #permission_classes = [IsAuthenticated]
+    
 class StudentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer

@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit{
     password: '',
     email: '',
     is_staff: true,
+    is_superuser: true,
   }  
 
   constructor(private authService: AuthService){

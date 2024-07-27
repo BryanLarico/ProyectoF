@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../auth/auth.service';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule para ngModel
 
 @Component({
   selector: 'app-book-grades',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './book-grades.component.html',
-  styleUrls: ['./book-grades.component.css'],
-  providers: [AuthService],
+  styleUrls: ['./book-grades.component.css']
 })
 export class BookGradesComponent implements OnInit {
   courses: any[] = [];
@@ -22,16 +21,25 @@ export class BookGradesComponent implements OnInit {
   }
 
   loadCourses(): void {
-    const apiUrl = 'http://127.0.0.1:8000/api/courses/'; // Actualiza con la URL correcta de tu API
+    const apiUrl = 'http://127.0.0.1:8000/api/courses/';
     this.http.get(apiUrl).subscribe((data: any) => {
-      this.courses = data;
-      this.calculateOverallAverage();
+      this.courses = data.map((course: any) => ({ ...course, grade: null })); // Inicializar la nota
     });
   }
 
   calculateOverallAverage(): void {
-    const totalCredits = this.courses.reduce((sum, course) => sum + course.credits, 0);
-    const totalGradePoints = this.courses.reduce((sum, course) => sum + (course.grade * course.credits), 0);
-    this.overallAverage = totalGradePoints / totalCredits;
+    let totalCredits = 0;
+    let totalGradePoints = 0;
+  
+    this.courses.forEach(course => {
+      const grade = course.grade !== null ? course.grade : 0;
+      totalCredits += course.credit; // Asegúrate de que el atributo se llame 'credit'
+      totalGradePoints += grade * course.credit; // Asegúrate de que el atributo se llame 'credit'
+    });
+  
+    this.overallAverage = totalCredits > 0 ? totalGradePoints / totalCredits : 0;
+  
+    // Redondear a 4 decimales
+    this.overallAverage = parseFloat(this.overallAverage.toFixed(4));
   }
 }

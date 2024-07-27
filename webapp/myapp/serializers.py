@@ -9,6 +9,7 @@ from .Section import Section
 from .Student import Student
 from .Teacher import Teacher
 from .UnitReport import UnitReport
+from .CourseGradesStudent import CourseGradesStudent
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -23,8 +24,12 @@ class CareerSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['idCourse', 'nameCourse', 'idTeacher', 'credit', 'year', 'laboratory', 'hoursTeory', 
-            'hoursPractice', 'p1', 'p2', 'p3', 'e1', 'e2', 'e3', 'status', 'created', 'modified']
+        fields = ['idCourse', 'nameCourse', 'credit', 'prerequisite', 'semester', 'laboratory', 'hoursTeory', 'hoursPractice', 'p1', 'p2', 'p3', 'e1', 'e2', 'e3', 'status', 'created', 'modified']
+
+class CourseGradesStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseGradesStudent
+        fields = ['idCourseGradesStudent', 'idCourse', 'idStudent', 'finalGrade', 'created', 'modified']
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:

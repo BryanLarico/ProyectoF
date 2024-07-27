@@ -91,7 +91,7 @@ export class SemesterGradesComponent implements OnInit {
     this.acumFilaPunt = [];
     let acumPunt = 0;
     for(let acum of this.acumFila){
-      acumPunt += acum / 5;
+      acumPunt = acum / 5;
       this.acumFilaPunt.push(acumPunt);
 
     }

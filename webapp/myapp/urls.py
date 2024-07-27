@@ -20,6 +20,7 @@ from .views import (
     TeacherListCreateAPIView, TeacherDetailAPIView,
     UnitReportListCreateAPIView, UnitReportDetailAPIView,
     UnitReportByStudentAPIView,
+    CourseGradesStudentListCreateAPIView, CourseGradesStudentDetailAPIView,
 )
 
 schema_view = get_schema_view(
@@ -52,7 +53,10 @@ urlpatterns = [
     # URLs para Course
     path('courses/', CourseListCreateAPIView.as_view(), name='course-list-create'),
     path('courses/<int:pk>/', CourseDetailAPIView.as_view(), name='course-detail'),
-
+    
+    path('coursesGradesStudent/', CourseGradesStudentListCreateAPIView.as_view(), name='course-grades-student-list-create'),
+    path('coursesGradesStudent/<int:pk>/', CourseGradesStudentDetailAPIView.as_view(), name='course-grades-student-detail'),
+    
     # URLs para UnitReport
     path('unitreports/', UnitReportListCreateAPIView.as_view(), name='unitreport-list-create'),
     path('unitreports/<int:pk>/', UnitReportDetailAPIView.as_view(), name='unitreport-detail'),
